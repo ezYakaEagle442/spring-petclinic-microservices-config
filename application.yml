@@ -79,8 +79,8 @@ spring:
   datasource:
     schema: classpath*:db/mysql/schema.sql
     data: classpath*:db/mysql/data.sql
-    # jdbc:mysql://localhost:3306/petclinic?useSSL=false
-    url: String url="jdbc:mysql://petcliaro-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true";myDbConn=DriverManager.getConnection(url, "mys_adm", "IsTrator42!");
+    # url: jdbc:mysql://localhost:3306/petclinic?useSSL=false
+    url: jdbc:mysql://petcliaro-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true";myDbConn=DriverManager.getConnection(url, "mys_adm", "IsTrator42!");
     #username: root
     #password: petclinic
     initialization-mode: ALWAYS
