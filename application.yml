@@ -80,7 +80,7 @@ spring:
     schema: classpath*:db/mysql/schema.sql
     data: classpath*:db/mysql/data.sql
     # url: jdbc:mysql://localhost:3306/petclinic?useSSL=false
-    url: String url="jdbc:mysql://petcliaro-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true";myDbConn=DriverManager.getConnection(url, "mys_adm", "IsTrator42!");
-    #username: root
-    #password: petclinic
+    url: jdbc:mysql://petcliaro-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true
+    username: mys_adm
+    password: IsTrator42!
     initialization-mode: ALWAYS
