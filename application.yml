@@ -83,7 +83,7 @@ spring:
     # url: jdbc:mysql://petcliaro-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true
     # https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-using-ssl.html
     # url: jdbc:mysql://petclinic-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
-    url: jdbc:mysql://${MYSQL_SERVER_FULL_NAME}:3306/${MYSQL_DATABASE_NAME}?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
+    url: jdbc:mysql://${MYSQL_SERVER_FULL_NAME}:3306/${MYSQL_DATABASE_NAME}?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=false
     username: ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
     password: ${MYSQL_SERVER_ADMIN_PASSWORD}
     initialization-mode: ALWAYS
