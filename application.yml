@@ -28,6 +28,8 @@ spring:
     # https://stackoverflow.com/questions/28042426/spring-boot-error-creating-bean-with-name-datasource-defined-in-class-path-r
     # https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
     defer-datasource-initialization: true
+    # https://facingissuesonit.com/2019/07/15/org-hibernate-hibernateexception-access-to-dialectresolutioninfo-cannot-be-null-when-hibernate-dialect-not-set
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
 # Spring Boot 1.5 makes actuator secure by default
 management.security.enabled: false
@@ -100,6 +102,8 @@ spring:
     username: ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
     password: ${MYSQL_SERVER_ADMIN_PASSWORD}
     initialization-mode: ALWAYS
+    # https://javabydeveloper.com/spring-boot-loading-initial-data/
+    platform: mysql
 
 ---
 spring:
