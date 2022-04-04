@@ -32,6 +32,8 @@ spring:
     defer-datasource-initialization: true
     # https://facingissuesonit.com/2019/07/15/org-hibernate-hibernateexception-access-to-dialectresolutioninfo-cannot-be-null-when-hibernate-dialect-not-set
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    # database-platform: org.hibernate.dialect.MySQLDialect
+    # database: mysql
 
 # Spring Boot 1.5 makes actuator secure by default
 management.security.enabled: false
@@ -106,7 +108,7 @@ spring:
     initialization-mode: ALWAYS
     # https://javabydeveloper.com/spring-boot-loading-initial-data/
     platform: mysql
-
+    # driver-class-name: com.mysql.jdbc.Driver
 ---
 spring:
   profiles: key-vault
