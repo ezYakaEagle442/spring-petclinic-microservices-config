@@ -24,6 +24,7 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: none
+    defer-datasource-initialization: true
   jmx:
     enabled: true
 
@@ -39,6 +40,14 @@ spring.cloud.refresh.refreshable: false
 
 # Logging
 logging.level.org.springframework: INFO
+logging.level.org.springframework.web: debug
+logging.level.org.hibernate: debug
+logging.level.com.mysql: debug
+logging.level.org.springframework.jdbc.datasource: debug
+logging.level.org.springframework.boot.sql.init: debug
+logging.level.org.springframework.boot.autoconfigure.jdbc: debug
+logging.level.com.zaxxer.hikari.HikariDataSource: debug
+logging.level.com.zaxxer.hikari.pool.PoolBase: debug
 
 # Metrics
 management:
