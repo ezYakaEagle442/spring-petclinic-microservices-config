@@ -31,9 +31,9 @@ spring:
     # https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
     defer-datasource-initialization: true
     # https://facingissuesonit.com/2019/07/15/org-hibernate-hibernateexception-access-to-dialectresolutioninfo-cannot-be-null-when-hibernate-dialect-not-set
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    # database-platform: org.hibernate.dialect.MySQLDialect
-    # database: mysql
+    # database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQLDialect
+    database: mysql
 
 # Spring Boot 1.5 makes actuator secure by default
 management.security.enabled: false
@@ -105,10 +105,10 @@ spring:
     # url: jdbc:mysql://petcliaro-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true
     # https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-using-ssl.html
     # url: jdbc:mysql://petclinic-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
-    url: jdbc:mysql://${MYSQL_SERVER_FULL_NAME}:3306/${MYSQL_DATABASE_NAME}?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=false
+    url: jdbc:mysql://${MYSQL_SERVER_FULL_NAME}:3306/${MYSQL_DATABASE_NAME}?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
     username: ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
     password: ${MYSQL_SERVER_ADMIN_PASSWORD}
-    initialization-mode: ALWAYS
+    initialization-mode: NEVER # ALWAYS
     # https://javabydeveloper.com/spring-boot-loading-initial-data/
     platform: mysql
     # driver-class-name: com.mysql.jdbc.Driver
