@@ -56,6 +56,9 @@ logging.level.org.springframework.boot.autoconfigure.jdbc: debug
 logging.level.com.zaxxer.hikari.HikariDataSource: debug
 logging.level.com.zaxxer.hikari.pool.PoolBase: debug
 
+logging.level.o.s.b.context.config.ConfigDataLoader: debug
+logging.level.org.springframework.boot.context.config.ConfigDataLoader: debug
+logging.level.org.springframework.boot.context.config: debug
 
 # Metrics
 management:
