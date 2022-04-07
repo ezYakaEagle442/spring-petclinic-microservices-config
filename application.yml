@@ -1,4 +1,5 @@
 # COMMON APPLICATION PROPERTIES
+# See Azure KeyVault config doc at https://microsoft.github.io/spring-cloud-azure/docs/4.0.0-beta.2/reference/html/index.html#basic-usage-3
 
 server:
   # start services on random port by default
@@ -127,14 +128,15 @@ spring:
     #driver-class-name: com.mysql.jdbc.Driver
 ---
 spring:
-  profiles: key-vault
-
-  MYSQL_SERVER_FULL_NAME: ${MYSQL-SERVER-FULL-NAME}
-  MYSQL_DATABASE_NAME: ${MYSQL-DATABASE-NAME}
-  MYSQL_SERVER_ADMIN_LOGIN_NAME: ${MYSQL-SERVER-ADMIN-LOGIN-NAME}
-  MYSQL_SERVER_ADMIN_PASSWORD: ${MYSQL-SERVER-ADMIN-PASSWORD}
-
-  azure:
-  keyvault:
-     enabled: true
-     uri: ${AZURE_KEY_VAULT_URI}
+  cloud:
+    azure:
+      profile:
+        tenant-id: ${AZURE_TENANT_ID}
+      credential:
+        client-id: ${AZURE_CLIENT_ID}
+        client-secret: ${AZURE_CLIENT_SECRET}
+      keyvault:
+        secret:
+          property-source-enabled: true
+          endpoint: ${AZURE_KEYVAULT_ENDPOINT}
+          
