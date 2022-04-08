@@ -127,16 +127,31 @@ spring:
     platform: mysql
     #driver-class-name: com.mysql.jdbc.Driver
 ---
+# https://github.com/Azure/azure-sdk-for-java/issues/28128
+# https://microsoft.github.io/spring-cloud-azure/docs/4.0.0-beta.2/reference/html/index.html#one-property-source
+# spring:
+#  cloud:
+#    azure:
+#      profile:
+#        tenant-id: ${AZURE_TENANT_ID}
+#      credential:
+#        client-id: ${AZURE_CLIENT_ID}
+#        client-secret: ${AZURE_CLIENT_SECRET}
+#      keyvault:
+#        secret:
+#          property-source-enabled: true
+#          endpoint: ${AZURE_KEYVAULT_ENDPOINT}
+          
 spring:
   cloud:
     azure:
-      profile:
-        tenant-id: ${AZURE_TENANT_ID}
-      credential:
-        client-id: ${AZURE_CLIENT_ID}
-        client-secret: ${AZURE_CLIENT_SECRET}
       keyvault:
         secret:
-          property-source-enabled: true
-          endpoint: ${AZURE_KEYVAULT_ENDPOINT}
-          
+          property-sources:
+            - credential:
+                client-id: ${AZURE_CLIENT_ID}
+                client-secret: ${AZURE_CLIENT_SECRET}
+              endpoint: ${ENDPOINT}
+              profile:
+                tenant-id: ${AZURE_TENANT_ID}
+                
