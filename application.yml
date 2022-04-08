@@ -16,6 +16,16 @@ spring:
     sampler:
       probability: 1.0
   cloud:
+    azure:
+      keyvault:
+        secret:
+          property-sources:
+            - credential:
+                client-id: ${AZURE_CLIENT_ID}
+                client-secret: ${AZURE_CLIENT_SECRET}
+              endpoint: ${ENDPOINT}
+              profile:
+                tenant-id: ${AZURE_TENANT_ID}  
     config:
       # Allow the microservices to override the remote properties with their own System properties or config file
       allow-override: true
@@ -126,15 +136,17 @@ spring:
     # https://javabydeveloper.com/spring-boot-loading-initial-data/
     platform: mysql
     #driver-class-name: com.mysql.jdbc.Driver
+
 ---
-
 spring:
-  profiles: key-vault
+  config:
+    activate:
+      on-profile: key-vault
+  MYSQL_SERVER_FULL_NAME: ${MYSQL-SERVER-FULL-NAME}
+  MYSQL_DATABASE_NAME: ${MYSQL-DATABASE-NAME}
+  MYSQL_SERVER_ADMIN_LOGIN_NAME: ${MYSQL-SERVER-ADMIN-LOGIN-NAME}
+  MYSQL_SERVER_ADMIN_PASSWORD: ${MYSQL-SERVER-ADMIN-PASSWORD}
 
-MYSQL_SERVER_FULL_NAME: ${MYSQL-SERVER-FULL-NAME}
-MYSQL_DATABASE_NAME: ${MYSQL-DATABASE-NAME}
-MYSQL_SERVER_ADMIN_LOGIN_NAME: ${MYSQL-SERVER-ADMIN-LOGIN-NAME}
-MYSQL_SERVER_ADMIN_PASSWORD: ${MYSQL-SERVER-ADMIN-PASSWORD}
 
 # https://github.com/Azure/azure-sdk-for-java/issues/28128
 # https://microsoft.github.io/spring-cloud-azure/docs/4.0.0-beta.2/reference/html/index.html#one-property-source
@@ -150,17 +162,3 @@ MYSQL_SERVER_ADMIN_PASSWORD: ${MYSQL-SERVER-ADMIN-PASSWORD}
 #        secret:
 #          property-source-enabled: true
 #          endpoint: ${AZURE_KEYVAULT_ENDPOINT}
-          
-spring:
-  cloud:
-    azure:
-      keyvault:
-        secret:
-          property-sources:
-            - credential:
-                client-id: ${AZURE_CLIENT_ID}
-                client-secret: ${AZURE_CLIENT_SECRET}
-              endpoint: ${ENDPOINT}
-              profile:
-                tenant-id: ${AZURE_TENANT_ID}
-                
