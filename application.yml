@@ -129,24 +129,15 @@ spring:
     # url: jdbc:mysql://petcliaro-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true
     # https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-using-ssl.html
     # url: jdbc:mysql://petclinic-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
-    url: jdbc:mysql://${MYSQL_SERVER_FULL_NAME}:3306/${MYSQL_DATABASE_NAME}?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
-    username: ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
-    password: ${MYSQL_SERVER_ADMIN_PASSWORD}
+    # url: jdbc:mysql://${MYSQL_SERVER_FULL_NAME}:3306/${MYSQL_DATABASE_NAME}?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
+    url: jdbc:mysql://${MYSQL-SERVER-FULL-NAME}:3306/${MYSQL-DATABASE-NAME}?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
+    
+    username: ${MYSQL-SERVER-ADMIN-LOGIN-NAME} # ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
+    password: ${MYSQL-SERVER-ADMIN-PASSWORD} # ${MYSQL_SERVER_ADMIN_PASSWORD}
     initialization-mode: NEVER # ALWAYS
     # https://javabydeveloper.com/spring-boot-loading-initial-data/
     platform: mysql
     #driver-class-name: com.mysql.jdbc.Driver
-
----
-spring:
-  config:
-    activate:
-      on-profile: key-vault
-  MYSQL_SERVER_FULL_NAME: ${MYSQL-SERVER-FULL-NAME}
-  MYSQL_DATABASE_NAME: ${MYSQL-DATABASE-NAME}
-  MYSQL_SERVER_ADMIN_LOGIN_NAME: ${MYSQL-SERVER-ADMIN-LOGIN-NAME}
-  MYSQL_SERVER_ADMIN_PASSWORD: ${MYSQL-SERVER-ADMIN-PASSWORD}
-
 
 # https://github.com/Azure/azure-sdk-for-java/issues/28128
 # https://microsoft.github.io/spring-cloud-azure/docs/4.0.0-beta.2/reference/html/index.html#one-property-source
