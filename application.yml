@@ -57,7 +57,7 @@ logging.level.org.springframework.boot.autoconfigure.jdbc: debug
 logging.level.com.zaxxer.hikari.HikariDataSource: debug
 logging.level.com.zaxxer.hikari.pool.PoolBase: debug
 
-logging.level.org.springframework.boot.jdbc.init.dependency.DataSourceInitializerDetector=: debug
+logging.level.org.springframework.boot.jdbc.init.dependency.DataSourceInitializerDetector: debug
 logging.level.org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializerDetector: debug
 logging.level.org.springframework.boot.orm.jpa.JpaDataSourceInitializerDetector: debug
 
@@ -69,9 +69,9 @@ logging.level.org.springframework.boot.env.PropertySourceLoader: debug
 logging.level.org.springframework.boot.env.PropertiesPropertySourceLoader: debug
 logging.level.org.springframework.boot.env.YamlPropertySourceLoader: debug
 
-org.springframework.context.ApplicationContextInitializer: debug
-org.springframework.boot.context.ConfigurationWarningsApplicationContextInitializer: debug
-org.springframework.boot.context.ContextIdApplicationContextInitializer: debug
+logging.level.org.springframework.context.ApplicationContextInitializer: debug
+logging.level.org.springframework.boot.context.ConfigurationWarningsApplicationContextInitializer: debug
+logging.level.org.springframework.boot.context.ContextIdApplicationContextInitializer: debug
 
 
 # Metrics
