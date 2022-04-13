@@ -1,5 +1,24 @@
 # COMMON APPLICATION PROPERTIES
-# See Azure KeyVault config doc at https://microsoft.github.io/spring-cloud-azure/docs/4.0.0-beta.2/reference/html/index.html#basic-usage-3
+# 
+
+# https://github.com/Azure/azure-sdk-for-java/issues/28128
+# See Azure KeyVault config doc  https://microsoft.github.io/spring-cloud-azure/4.0.0/reference/html/index.html#basic-usage-3
+# Azure Spring Cloud managed Config-Server does not yet support Azure Key Vault
+# https://github.com/Azure/Azure-Spring-Cloud/issues/9
+# https://github.com/MicrosoftDocs/azure-docs/issues/91311
+
+# spring:
+#  cloud:
+#    azure:
+#      profile:
+#        tenant-id: ${AZURE_TENANT_ID}
+#      credential:
+#        client-id: ${AZURE_CLIENT_ID}
+#        client-secret: ${AZURE_CLIENT_SECRET}
+#      keyvault:
+#        secret:
+#          property-source-enabled: true
+#          endpoint: ${AZURE_KEYVAULT_ENDPOINT}
 
 server:
   # start services on random port by default
@@ -9,23 +28,10 @@ server:
 
 # embedded database init, supports mysql too trough the 'mysql' spring profile
 spring:
-  datasource:
-    schema: classpath*:db/hsqldb/schema.sql
-    data: classpath*:db/hsqldb/data.sql
-  sleuth:
-    sampler:
-      probability: 1.0
-  cloud:
-    azure:
-      keyvault:
-        secret:
-          property-sources:
-            - credential:
-                client-id: ${AZURE_CLIENT_ID}
-                client-secret: ${AZURE_CLIENT_SECRET}
-              endpoint: ${ENDPOINT}
-              profile:
-                tenant-id: ${AZURE_TENANT_ID}  
+  sql:
+    init:
+      schema-locations: classpath*:db/hsqldb/schema.sql
+      data-locations: classpath*:db/hsqldb/data.sql
     config:
       # Allow the microservices to override the remote properties with their own System properties or config file
       allow-override: true
@@ -117,39 +123,4 @@ chaos:
       rest-controller: false
       service: false
 
----
-spring:
-  config:
-    activate:
-      on-profile: mysql
-  datasource:
-    schema: classpath*:db/mysql/schema.sql
-    data: classpath*:db/mysql/data.sql
-    # url: jdbc:mysql://localhost:3306/petclinic?useSSL=false
-    # url: jdbc:mysql://petcliaro-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true
-    # https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-using-ssl.html
-    # url: jdbc:mysql://petclinic-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
-    # url: jdbc:mysql://${MYSQL_SERVER_FULL_NAME}:3306/${MYSQL_DATABASE_NAME}?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
-    url: jdbc:mysql://${MYSQL-SERVER-FULL-NAME}:3306/${MYSQL-DATABASE-NAME}?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
-    
-    username: ${MYSQL-SERVER-ADMIN-LOGIN-NAME} # ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
-    password: ${MYSQL-SERVER-ADMIN-PASSWORD} # ${MYSQL_SERVER_ADMIN_PASSWORD}
-    initialization-mode: NEVER # ALWAYS
-    # https://javabydeveloper.com/spring-boot-loading-initial-data/
-    platform: mysql
-    #driver-class-name: com.mysql.jdbc.Driver
-
-# https://github.com/Azure/azure-sdk-for-java/issues/28128
-# https://microsoft.github.io/spring-cloud-azure/docs/4.0.0-beta.2/reference/html/index.html#one-property-source
-# spring:
-#  cloud:
-#    azure:
-#      profile:
-#        tenant-id: ${AZURE_TENANT_ID}
-#      credential:
-#        client-id: ${AZURE_CLIENT_ID}
-#        client-secret: ${AZURE_CLIENT_SECRET}
-#      keyvault:
-#        secret:
-#          property-source-enabled: true
-#          endpoint: ${AZURE_KEYVAULT_ENDPOINT}
+--- 
