@@ -1,24 +1,16 @@
 # COMMON APPLICATION PROPERTIES
 # 
 
+# https://learn.microsoft.com/en-us/training/modules/secure-application-secrets-use-key-vault/6-update-application-configure
+# https://techcommunity.microsoft.com/t5/apps-on-azure-blog/delete-passwords-passwordless-connections-for-java-apps-to-azure/ba-p/3638714
+# https://learn.microsoft.com/en-us/training/modules/secure-application-secrets-use-key-vault/6-update-application-configure
+
 # https://github.com/Azure/azure-sdk-for-java/issues/28128
-# See Azure KeyVault config doc  https://microsoft.github.io/spring-cloud-azure/4.0.0/reference/html/index.html#basic-usage-3
-# Azure Spring Cloud managed Config-Server does not yet support Azure Key Vault
+# See Azure KeyVault config doc  https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#basic-usage-3
+# https://github.com/Azure/azure-sdk-for-java/issues/28310
+# Azure Spring Apps managed Config-Server does not yet support Azure Key Vault
 # https://github.com/Azure/Azure-Spring-Cloud/issues/9
 # https://github.com/MicrosoftDocs/azure-docs/issues/91311
-
-# spring:
-#  cloud:
-#    azure:
-#      profile:
-#        tenant-id: ${AZURE_TENANT_ID}
-#      credential:
-#        client-id: ${AZURE_CLIENT_ID}
-#        client-secret: ${AZURE_CLIENT_SECRET}
-#      keyvault:
-#        secret:
-#          property-source-enabled: true
-#          endpoint: ${AZURE_KEYVAULT_ENDPOINT}
 
 server:
   # start services on random port by default
@@ -61,12 +53,62 @@ management.endpoints.web.exposure.include: "*"
 # Waiting issue https://github.com/spring-projects/spring-boot/issues/13042
 spring.cloud.refresh.refreshable: false
 
-
+---
+spring:
+  cloud:
+    azure:
+      profile: # spring.cloud.azure.profile
+        # subscription-id:
+        tenant-id: ${AZURE_TENANT_ID}
+      credential:
+        managed-identity-enabled: true        
+      keyvault:
+        secret:
+          enabled: true
+          property-sources:
+            - name: kv-property-source-endpoint
+              endpoint: ${AZURE_KEY_VAULT_ENDPOINT}
+              credential.managed-identity-enabled: true # https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#configuration-17
+              # credential:
+              #  client-id: ${AZURE_CLIENT_ID}
+              #  client-secret: ${AZURE_CLIENT_SECRET}
+              # profile:
+              #  tenant-id: ${AZURE_TENANT_ID}
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    schema: classpath*:db/mysql/schema.sql
+    data: classpath*:db/mysql/data.sql
+    # url: jdbc:mysql://localhost:3306/petclinic?useSSL=false
+    # url: jdbc:mysql://petcliaca-mysql-server.mysql.database.azure.com:3306/petclinic?useSSL=true
+    # https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-using-ssl.html
+    # url: jdbc:mysql://petclinic.mysql.database.azure.com:3306/petclinic?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true
+    
+    # https://docs.spring.io/spring-boot/docs/2.7.3/reference/html/application-properties.html#appendix.application-properties.data
+    # spring.datasource.url, spring.datasource.username and spring.datasource.password will be automatically injected from KV secrets SPRING-DATASOURCE-URL, SPRING-DATASOURCE-USERNAME and SPRING-DATASOURCE-PASSWORD
+    # url: jdbc:mysql://${MYSQL-SERVER-FULL-NAME}:3306/${MYSQL-DATABASE-NAME}?useSSL=true&requireSSL=true&enabledTLSProtocols=TLSv1.2&verifyServerCertificate=true    
+    # username: ${MYSQL-SERVER-ADMIN-LOGIN-NAME} # ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
+    # password: ${MYSQL-SERVER-ADMIN-PASSWORD} # ${MYSQL_SERVER_ADMIN_PASSWORD}
+    
+    initialization-mode: ALWAYS # NEVER
+    # https://javabydeveloper.com/spring-boot-loading-initial-data/
+    platform: mysql
+    #driver-class-name: com.mysql.jdbc.Driver
+---
 # Logging
+logging.level.com.azure.spring.cloud.starter.keyvault.secrets: debug
+logging.level.org.springframework.samples.petclinic: debug
+
 logging.level.org.springframework: INFO
 logging.level.org.springframework.web: debug
 logging.level.org.hibernate: debug
 logging.level.com.mysql: debug
+logging.level.org.springframework.data.jpa: debug
+logging.level.org.springframework.web: debug
+logging.level.javax.persistence: INFO
 logging.level.org.springframework.jdbc.datasource: debug
 logging.level.org.springframework.boot.sql.init: debug
 logging.level.org.springframework.boot.autoconfigure.jdbc: debug
@@ -89,8 +131,10 @@ logging.level.org.springframework.context.ApplicationContextInitializer: debug
 logging.level.org.springframework.boot.context.ConfigurationWarningsApplicationContextInitializer: debug
 logging.level.org.springframework.boot.context.ContextIdApplicationContextInitializer: debug
 
-
-# Metrics
+---
+# Metrics: 
+# https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator.metrics
+# https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator.endpoints.exposing
 management:
   endpoint:
     metrics:
@@ -105,6 +149,15 @@ management:
     export:
       prometheus:
         enabled: true
+      # https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator.metrics.export.dynatrace
+      # dynatrace:
+      #   uri: "https://example.live.dynatrace.com/api/v2/metrics/ingest"
+      #   api-token: "YOUR_TOKEN"        
+      # https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator.metrics.export.datadog
+      # datadog:
+      #   api-key: "YOUR_KEY"
+      #   application-key: "YOUR_APPLICATION_KEY"
+
 
 # Chaos Engineering
 ---
@@ -122,5 +175,3 @@ chaos:
       repository: false
       rest-controller: false
       service: false
-
---- 
