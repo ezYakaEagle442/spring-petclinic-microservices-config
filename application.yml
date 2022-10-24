@@ -62,6 +62,10 @@ management.endpoints.web.exposure.include: "*"
 # Waiting issue https://github.com/spring-projects/spring-boot/issues/13042
 spring.cloud.refresh.refreshable: false
 
+azure:
+  keyvault:
+    enabled: true
+    uri: ${AZURE_KEY_VAULT_URI}
 ---
 spring:
   cloud:
