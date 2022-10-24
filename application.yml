@@ -12,11 +12,13 @@
 # https://github.com/Azure/Azure-Spring-Cloud/issues/9
 # https://github.com/MicrosoftDocs/azure-docs/issues/91311
 
-server:
+# https://learn.microsoft.com/en-us/azure/spring-apps/how-to-config-server#restriction
+# There are some restrictions when you use Config Server with a Git back end. The following properties are automatically injected into your application environment to access Config Server and Service Discovery. If you also configure those properties from your Config Server files, you might experience conflicts and unexpected behavior.
+#server:
   # start services on random port by default
-  port: 0
+  #port: 0
   # The stop processing uses a timeout which provides a grace period during which existing requests will be allowed to complete but no new requests will be permitted
-  shutdown: graceful
+  #shutdown: graceful
 
 # embedded database init, supports mysql too trough the 'mysql' spring profile
 spring:
