@@ -78,13 +78,13 @@ spring:
       keyvault:
         secret:
           enabled: true
-          endpoint: https://kv-petcliasa21.vault.azure.net/ # https://kv-petcliasa21.vault.azure.net/ ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
+          # endpoint: https://kv-petcliasa21.vault.azure.net/ # https://kv-petcliasa21.vault.azure.net/ ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
           property-sources:
             - name: kv-property-source-endpoint
               endpoint: https://kv-petcliasa21.vault.azure.net/ # https://kv-petcliasa21.vault.azure.net/
-              credential.managed-identity-enabled: true # https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#configuration-17
-              # credential:
-              #  client-id: ${AZURE_CLIENT_ID}
+              credential:
+                managed-identity-enabled: true # https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#configuration-17
+                client-id: ${AZURE_CLIENT_ID}
               #  client-secret: ${AZURE_CLIENT_SECRET}
               # profile:
               #  tenant-id: ${SPRING_CLOUD_AZURE_TENANT_ID}
