@@ -77,17 +77,29 @@ spring:
         managed-identity-enabled: true        
       keyvault:
         secret:
-          enabled: true
-          # endpoint: https://kv-petcliasa21.vault.azure.net/ # https://kv-petcliasa21.vault.azure.net/ ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
+          # enabled: true
+          property-source-enabled: true
+          # endpoint: ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
           property-sources:
-            - name: kv-property-source-endpoint
-              endpoint: https://kv-petcliasa21.vault.azure.net/ # https://kv-petcliasa21.vault.azure.net/
+            - name: kv-cfg-vets # KV Config for each App Vets-Service
+              endpoint: ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
               credential:
                 managed-identity-enabled: true # https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#configuration-17
-                client-id: ${AZURE_CLIENT_ID}
-              #  client-secret: ${AZURE_CLIENT_SECRET}
+                client-id: ${VETS_SVC_APP_IDENTITY_CLIENT_ID}
+              #  client-secret: ${AZURE_CLIENT_SECRET} for SPN not for MI
               # profile:
               #  tenant-id: ${SPRING_CLOUD_AZURE_TENANT_ID}
+            - name: kv-cfg-visits # KV Config for each App Visits-Service
+              endpoint: ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
+              credential:
+                managed-identity-enabled: true
+                client-id: ${VISITS_SVC_APP_IDENTITY_CLIENT_ID}
+            - name: kv-cfg-customers # KV Config for each App Customers-Service
+              endpoint: ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
+              credential:
+                managed-identity-enabled: true
+                client-id: ${CUSTOMERS_SVC_APP_IDENTITY_CLIENT_ID}
+                
 ---
 spring:
   config:
@@ -117,22 +129,24 @@ logging.level.com.azure.spring.cloud.starter.keyvault.secrets: debug
 logging.level.com.azure.security.keyvault.secrets: debug
 logging.level.org.springframework.samples.petclinic: debug
 
-logging.level.org.springframework: INFO
-logging.level.org.springframework.web: debug
 logging.level.org.hibernate: debug
 logging.level.com.mysql: debug
-logging.level.org.springframework.data.jpa: debug
-logging.level.org.springframework.web: debug
 logging.level.javax.persistence: INFO
-logging.level.org.springframework.jdbc.datasource: debug
-logging.level.org.springframework.boot.sql.init: debug
-logging.level.org.springframework.boot.autoconfigure.jdbc: debug
-logging.level.com.zaxxer.hikari.HikariDataSource: debug
-logging.level.com.zaxxer.hikari.pool.PoolBase: debug
 
+logging.level.org.springframework: INFO
+logging.level.org.springframework.boot.autoconfigure.jdbc: debug
+logging.level.org.springframework.boot.sql.init: debug
+logging.level.org.springframework.data.jpa: debug
+logging.level.org.springframework.jdbc.datasource: debug
 logging.level.org.springframework.boot.jdbc.init.dependency.DataSourceInitializerDetector: debug
 logging.level.org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializerDetector: debug
 logging.level.org.springframework.boot.orm.jpa.JpaDataSourceInitializerDetector: debug
+
+logging.level.org.springframework.web: debug
+
+logging.level.com.zaxxer.hikari.HikariDataSource: debug
+logging.level.com.zaxxer.hikari.pool.PoolBase: debug
+
 
 logging.level.o.s.b.context.config.ConfigDataLoader: debug
 logging.level.org.springframework.boot.context.config.ConfigDataLoader: debug
