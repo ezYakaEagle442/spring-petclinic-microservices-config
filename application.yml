@@ -77,17 +77,29 @@ spring:
         managed-identity-enabled: true        
       keyvault:
         secret:
-          enabled: true
-          # endpoint: https://kv-petcliasa21.vault.azure.net/ # https://kv-petcliasa21.vault.azure.net/ ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
+          # enabled: true
+          property-source-enabled: true
+          # endpoint: ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
           property-sources:
-            - name: kv-property-source-endpoint
-              endpoint: https://kv-petcliasa21.vault.azure.net/ # https://kv-petcliasa21.vault.azure.net/
+            - name: kv-cfg-vets # KV Config for each App Vets-Service
+              endpoint: ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
               credential:
                 managed-identity-enabled: true # https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#configuration-17
-                client-id: ${AZURE_CLIENT_ID}
-              #  client-secret: ${AZURE_CLIENT_SECRET}
+                client-id: ${VETS_SVC_APP_IDENTITY_CLIENT_ID}
+              #  client-secret: ${AZURE_CLIENT_SECRET} for SPN not for MI
               # profile:
               #  tenant-id: ${SPRING_CLOUD_AZURE_TENANT_ID}
+            - name: kv-cfg-visits # KV Config for each App Visits-Service
+              endpoint: ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
+              credential:
+                managed-identity-enabled: true
+                client-id: ${VISITS_SVC_APP_IDENTITY_CLIENT_ID}
+            - name: kv-cfg-customers # KV Config for each App Customers-Service
+              endpoint: ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
+              credential:
+                managed-identity-enabled: true
+                client-id: ${CUSTOMERS_SVC_APP_IDENTITY_CLIENT_ID}
+                
 ---
 spring:
   config:
