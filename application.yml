@@ -73,7 +73,7 @@ spring:
         #managed-identity-enabled: true        
       keyvault:
         secret:
-          # enabled: true
+          enabled: true
           property-source-enabled: true
           # endpoint: ${SPRING_CLOUD_AZURE_KEY_VAULT_ENDPOINT}
           property-sources:
