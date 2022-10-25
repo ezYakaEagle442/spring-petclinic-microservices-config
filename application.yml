@@ -53,14 +53,9 @@ spring:
       auto-refresh: true
       refresh-interval: 60
 
-# Spring Boot 1.5 makes actuator secure by default
-management.security.enabled: false
-# Enable all Actuators and not only the two available by default /health and /info starting Spring Boot 2.0
-management.endpoints.web.exposure.include: "*"
-
 # Temporary hack required by the Spring Boot 2 / Spring Cloud Finchley branch
 # Waiting issue https://github.com/spring-projects/spring-boot/issues/13042
-spring.cloud.refresh.refreshable: false
+# spring.cloud.refresh.refreshable: false
 
 #azure:
 #  keyvault:
@@ -149,7 +144,6 @@ logging.level.org.springframework.web: debug
 logging.level.com.zaxxer.hikari.HikariDataSource: debug
 logging.level.com.zaxxer.hikari.pool.PoolBase: debug
 
-
 logging.level.o.s.b.context.config.ConfigDataLoader: debug
 logging.level.org.springframework.boot.context.config.ConfigDataLoader: debug
 logging.level.org.springframework.boot.context.config: debug
@@ -167,6 +161,8 @@ logging.level.org.springframework.boot.context.ContextIdApplicationContextInitia
 # https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator.metrics
 # https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator.endpoints.exposing
 management:
+  security:
+    enabled: false
   endpoint:
     metrics:
       enabled: true
