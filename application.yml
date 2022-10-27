@@ -37,7 +37,7 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: create-drop # create-drop or none
+      ddl-auto: none # create-drop or none
     # https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.data-initialization.using-basic-sql-scripts
     # https://stackoverflow.com/questions/28042426/spring-boot-error-creating-bean-with-name-datasource-defined-in-class-path-r
     # https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
@@ -116,7 +116,7 @@ spring:
     # username: ${MYSQL-SERVER-ADMIN-LOGIN-NAME} # ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
     # password: ${MYSQL-SERVER-ADMIN-PASSWORD} # ${MYSQL_SERVER_ADMIN_PASSWORD}
     
-    initialization-mode: ALWAYS # NEVER
+    initialization-mode: NEVER # NEVER ALWAYS
     # https://javabydeveloper.com/spring-boot-loading-initial-data/
     platform: mysql
     #driver-class-name: com.mysql.jdbc.Driver
