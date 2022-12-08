@@ -1,5 +1,6 @@
 server:
-  port: 8080
+  # ASA needs port 1025
+  # port: 8080
   compression:
     enabled: true
     mime-types: application/json,text/css,application/javascript
